@@ -6,7 +6,7 @@ Also, this is still very very basic.
 ## Usage
 * Clone to project using git, for example to a folder called `c:\Users\YourUserName\tools`
 * Add `c:\Users\YourUserName\tools\nodeswitch\bin` repository to your %PATH%
-	* On your keyboard, press `Windows Button + R` at the same type
+	* On your keyboard, press `Windows Button + R` at the same time
 	* Type `rundll32 sysdm.cpl,EditEnvironmentVariables` and press enter
 	* Double click on `Path`
 	* Click `New`
