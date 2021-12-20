@@ -69,8 +69,12 @@ function DownloadFile($url, $targetFile)
 }
 
 try {
-	DownloadFile "https://nodejs.org/dist/$NodeVersion/node-$NodeVersion-win-x64.zip" "$env:TEMP\out.zip"
-	Expand-Archive -Force $env:TEMP\out.zip -DestinationPath "$HOME\tools\"
+	$scriptPath = split-path -parent $MyInvocation.MyCommand.Definition
+	if (-Not (Test-Path -Path "$scriptPath\versions")) {
+		New-Item -Path "$scriptPath" -Name "versions" -ItemType "directory" | Out-Null
+	}
+	DownloadFile "https://nodejs.org/dist/$NodeVersion/node-$NodeVersion-win-x64.zip" "$env:TEMP\out.zip"	
+	Expand-Archive -Force $env:TEMP\out.zip -DestinationPath "$scriptPath\versions\"
 	Remove-Item -Force $env:TEMP\out.zip
 	Write-Output "Succesfully installed node $NodeVersion"
 	exit 0

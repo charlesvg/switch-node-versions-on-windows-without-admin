@@ -30,6 +30,6 @@ function Set-NodePath {
 
 }
 
-
-$returnCode = (Set-NodePath -NodePath "$HOME\tools\node-$NodeVersion-win-x64")
+$scriptPath = split-path -parent $MyInvocation.MyCommand.Definition
+$returnCode = (Set-NodePath -NodePath "$scriptPath\versions\node-$NodeVersion-win-x64")
 exit $returnCode
