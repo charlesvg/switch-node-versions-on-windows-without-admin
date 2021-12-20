@@ -1,6 +1,6 @@
 @echo off
 set batchPath=%~dp0
-powershell.exe -file "%batchPath%anynode.ps1" -NodeVersion %1
+powershell.exe -file "%batchPath%use.ps1" -NodeVersion %1
 
 if %errorlevel% == 1 (
 	echo Node version %1 is not installed.
