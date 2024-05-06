@@ -1,7 +1,8 @@
 param (
-	$NodeVersion
+	$NodeVersion,
+    $Arch = 64
 )
-Write-Output "Attempting to install node $NodeVersion"
+Write-Output "Attempting to install node $NodeVersion ($Arch-bit)"
 
 <#
 try {
@@ -73,12 +74,19 @@ try {
 	if (-Not (Test-Path -Path "$scriptPath\versions")) {
 		New-Item -Path "$scriptPath" -Name "versions" -ItemType "directory" | Out-Null
 	}
-	DownloadFile "https://nodejs.org/dist/$NodeVersion/node-$NodeVersion-win-x64.zip" "$env:TEMP\out.zip"	
+    if ($Arch = 64) {
+        $ArchVersion = "x64"
+    } elseif ($Arch = 32) {
+        $ArchVersion = "x86"
+    } else {
+        $ArchVersion = "x64"
+    }
+	DownloadFile "https://nodejs.org/dist/$NodeVersion/node-$NodeVersion-win-$ArchVersion.zip" "$env:TEMP\out.zip"
 	Expand-Archive -Force $env:TEMP\out.zip -DestinationPath "$scriptPath\versions\"
 	Remove-Item -Force $env:TEMP\out.zip
-	Write-Output "Succesfully installed node $NodeVersion"
+	Write-Output "Succesfully installed node $NodeVersion ($Arch-bit)"
 	exit 0
 } catch {
-	Write-Output "Unable to download node $NodeVersion. Are you sure it exists?"
+	Write-Output "Unable to download node $NodeVersion ($Arch-bit). Are you sure it exists?"
 	exit 1
 }
